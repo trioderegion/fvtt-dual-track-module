@@ -8,7 +8,7 @@
     "authors": [
     ],
     "esmodules": [
-        "/scripts/module.mjs"
+        "scripts/module.mjs"
     ],
     "languages": [
     ],
