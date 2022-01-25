@@ -13,15 +13,22 @@
  * Sub Apps
  */
 //import { MyDialog } from './apps/my-dialog.js';
+export class MODULE {
+  static SUB_MODULES = {
+    //MyLogger,
+    //MyClass
+  };
 
-const SUB_MODULES = {
-  //MyLogger,
-  //MyClass
-};
-
-const SUB_APPS = {
-  //MyDialog  
+  static SUB_APPS = {
+    //MyDialog  
+  }
+  
+  static build() {
+    //all startup tasks needed before sub module initialization
+  }
 }
+
+
 
 /*
   Initialize Module
@@ -33,19 +40,14 @@ MODULE.build();
 */
 Hooks.on(`setup`, () => {
 
-  Object.values(SUB_MODULES).forEach(cl => cl.register());
+  Object.values(MODULE.SUB_MODULES).forEach(cl => cl.register());
 
   //GlobalTesting (adds all imports to global scope)
-  //Object.entries(SUB_MODULES).forEach(([key, cl])=> window[key] = cl);
-  //Object.entries(SUB_APPS).forEach(([key, cl])=> window[key] = cl);
+  //Object.entries(MODULE.SUB_MODULES).forEach(([key, cl])=> window[key] = cl);
+  //Object.entries(MODULE.SUB_APPS).forEach(([key, cl])=> window[key] = cl);
 });
 
-export class MODULE {
 
-  static build() {
-    //all startup tasks needed before sub module initialization
-  }
-}
 
 /*****Example Sub-Module Class******
 
