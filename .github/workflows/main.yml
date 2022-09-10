@@ -8,6 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract tag version number
+        id: get_version
+        uses: battila7/get-version-action@v2
+      
       - uses: actions/checkout@v2
       
       # Substitute the Manifest and Download URLs in the module.json
@@ -86,6 +90,7 @@ jobs:
          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
          git fetch origin "next"
          git switch -c "next" "origin/next"
-         git checkout stash module.json    
+         git checkout stash module.json
+         mv module.json module.${{steps.get_version.outputs.build}}.json
          git commit -m "${{github.event.release.tag_name}} manifest"
          git push -f
