@@ -1,0 +1,28 @@
+{
+    "name": "fvtt-dual-track-module",
+    "id": "fvtt-dual-track-module",
+    "title": "FVTT Dual-Track Module Template",
+    "description": "A template repository.",
+    "system": [],
+    "minimumCoreVersion": "9",
+    "maximumCoreVersion": "10",
+    "compatibility": {
+        "minimum": "9",
+        "verified": "10",
+        "maximum": "10"
+    },
+    "authors": [
+        {
+            "name": "trioderegion",
+            "url": "https://ko-fi.com/badgerwerks"
+        }
+    ],
+    "esmodules": [],
+    "languages": [],
+    "styles": [],
+    "socket": false,
+    "url": "https://github.com/trioderegion/fvtt-dual-track-module",
+    "version": "1.0.1-rc+3",
+    "manifest": "https://raw.githubusercontent.com/trioderegion/fvtt-dual-track-module/master/tracks/$BUILD_MANIFEST",
+    "download": "https://github.com/trioderegion/fvtt-dual-track-module/releases/download/1.0.1-rc+3/fvtt-dual-track-module.zip"
+}
