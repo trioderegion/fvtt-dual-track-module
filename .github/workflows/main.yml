@@ -92,7 +92,7 @@ jobs:
          git fetch origin "master"
          git switch -c "master" "origin/master"
          mkdir -p tracks
-         cd tracks
          git checkout stash module_${{steps.get_version.outputs.build}}.json
+         mv module_${{steps.get_version.outputs.build}}.json tracks/module_${{steps.get_version.outputs.build}}.json
          git commit -am "${{github.event.release.tag_name}} manifest"
          git push -f
