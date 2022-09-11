@@ -46,7 +46,7 @@ jobs:
 
 
       # Create a zip file with all files required by the module to add to the release
-      - run: zip -r ./${{github.repository}}.zip LICENSE src/*
+      - run: zip -r ./${{github.event.repository.name}}.zip LICENSE src/*
 
       # Create a release for this specific version
       - name: Update Release with Files
