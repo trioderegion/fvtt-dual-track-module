@@ -21,7 +21,7 @@ jobs:
         id: sub_release_manifest_version
         uses: microsoft/variable-substitution@v1
         with:
-          files: 'module.json'
+          files: 'src/module.json'
         env:
           version: ${{github.event.release.tag_name}}
           url: https://github.com/${{github.repository}}
@@ -36,17 +36,17 @@ jobs:
         id: sub_prerelease_manifest_version
         uses: microsoft/variable-substitution@v1
         with:
-          files: 'module.json'
+          files: 'src/module.json'
         env:
           version: ${{github.event.release.tag_name}}
           url: https://github.com/${{github.repository}}
-          manifest: https://raw.githubusercontent.com/${{github.repository}}/next/module.${{steps.get_version.outputs.build}}.json
+          manifest: https://raw.githubusercontent.com/${{github.repository}}/master/tracks/module_${{steps.get_version.outputs.build}}.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
      
 
 
       # Create a zip file with all files required by the module to add to the release
-      - run: zip -r ./module.zip module.json LICENSE scripts/ lang/ assets/ styles/ templates/
+      - run: zip -r ./${{github.repository}}.zip LICENSE src/*
 
       # Create a release for this specific version
       - name: Update Release with Files
@@ -59,7 +59,7 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './module.json, ./module.zip'
+          artifacts: './module.json, ./${{github.repository}}.zip'
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
           
@@ -74,7 +74,7 @@ jobs:
           draft: false
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './module.json, ./module.zip'
+          artifacts: './module.json, ./${{github.repository}}.zip'
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
           
@@ -84,13 +84,13 @@ jobs:
         run: |
          git config --global user.name '${{github.actor}}'
          git config --global user.email '${{github.actor}}@users.noreply.github.com'
-         mv module.json module.${{steps.get_version.outputs.build}}.json
-         git add module.${{steps.get_version.outputs.build}}.json
+         mv module.json module_${{steps.get_version.outputs.build}}.json
+         git add module_${{steps.get_version.outputs.build}}.json
          git stash
          git clean -f
          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
-         git fetch origin "next"
-         git switch -c "next" "origin/next"
-         git checkout stash module.${{steps.get_version.outputs.build}}.json
+         git fetch origin "master"
+         git switch -c "master" "origin/master"
+         git --work-tree=/tracks checkout stash module_${{steps.get_version.outputs.build}}.json
          git commit -am "${{github.event.release.tag_name}} manifest"
          git push -f
