@@ -15,7 +15,7 @@ jobs:
       - name: Store manifest names
         env:
           BUILD_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.${{steps.get_version.outputs.build}}.json
-          TRACK_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.json
+          TRACK_MANIFEST: ${{steps.get_version.outputs.prerelease}}-${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.json
         run: |
           echo "BUILD_MANIFEST=$BUILD_MANIFEST" >> $GITHUB_ENV
           echo "TRACK_MANIFEST=$TRACK_MANIFEST" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
         env:
           version: ${{github.event.release.tag_name}}
           url: https://github.com/${{github.repository}}
-          manifest: https://raw.githubusercontent.com/${{github.repository}}/master/tracks/$BUILD_MANIFEST
+          manifest: https://raw.githubusercontent.com/${{github.repository}}/master/tracks/$TRACK_MANIFEST
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/${{github.event.repository.name}}.zip
      
 
