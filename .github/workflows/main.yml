@@ -59,7 +59,7 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './module.json, ./${{github.repository}}.zip'
+          artifacts: './src/module.json, ./${{github.event.repository.name}}.zip'
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
           
@@ -74,7 +74,7 @@ jobs:
           draft: false
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './module.json, ./${{github.repository}}.zip'
+          artifacts: './src/module.json, ./${{github.event.repository.name}}.zip'
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
           
@@ -84,7 +84,7 @@ jobs:
         run: |
          git config --global user.name '${{github.actor}}'
          git config --global user.email '${{github.actor}}@users.noreply.github.com'
-         mv src/module.json module_${{steps.get_version.outputs.build}}.json
+         mv ./src/module.json module_${{steps.get_version.outputs.build}}.json
          git add module_${{steps.get_version.outputs.build}}.json
          git stash
          git clean -f
