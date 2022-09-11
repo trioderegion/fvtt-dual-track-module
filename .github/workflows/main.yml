@@ -11,9 +11,14 @@ jobs:
       - name: Extract tag version number
         id: get_version
         uses: battila7/get-version-action@v2
+     
+      - name: Store manifest names
         env:
           BUILD_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.${{steps.get_version.outputs.build}}.json
           TRACK_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.json
+        run: |
+          echo "BUILD_MANIFEST=$BUILD_MANIFEST" >> $GITHUB_ENV
+          echo "TRACK_MANIFEST=$TRACK_MANIFEST" >> $GITHUB_ENV
 
       
       - uses: actions/checkout@v2
