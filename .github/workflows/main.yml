@@ -102,7 +102,7 @@ jobs:
          git switch -c "master" "origin/master"
          mkdir -p tracks
          git checkout stash $TRACK_MANIFEST
-         mv $BUILD_MANIFEST tracks/$TRACK_MANIFEST
+         mv $TRACK_MANIFEST tracks/$TRACK_MANIFEST
          git add --all
          git commit -m "${{github.event.release.tag_name}} manifest"
          git push -f
