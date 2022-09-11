@@ -12,8 +12,9 @@ jobs:
         id: get_version
         uses: battila7/get-version-action@v2
         env:
-          BUILD_MANIFEST: ${{steps.get_version.outputs.version-without-v}}.json
-          VERSION: ${{steps.get_version.outputs.version-without-v}}
+          BUILD_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.${{steps.get_version.outputs.build}}.json
+          TRACK_MANIFEST: ${{steps.get_version.outputs.major}}.${{steps.get_version.outputs.minor}}.${{steps.get_version.outputs.patch}}.${{steps.get_version.outputs.prerelease}}.json
+
       
       - uses: actions/checkout@v2
       
@@ -87,16 +88,16 @@ jobs:
         run: |
          git config --global user.name '${{github.actor}}'
          git config --global user.email '${{github.actor}}@users.noreply.github.com'
-         mv ./src/module.json module_${{steps.get_version.outputs.build}}.json
-         git add module_${{steps.get_version.outputs.build}}.json
+         mv ./src/module.json $TRACK_MANIFEST
+         git add $TRACK_MANIFEST
          git stash
          git clean -f
          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
          git fetch origin "master"
          git switch -c "master" "origin/master"
          mkdir -p tracks
-         git checkout stash module_${{steps.get_version.outputs.build}}.json
-         mv module_${{steps.get_version.outputs.build}}.json tracks/module_${{steps.get_version.outputs.build}}.json
+         git checkout stash $TRACK_MANIFEST
+         mv $BUILD_MANIFEST tracks/$TRACK_MANIFEST
          git add --all
          git commit -m "${{github.event.release.tag_name}} manifest"
          git push -f
