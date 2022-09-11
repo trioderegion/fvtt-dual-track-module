@@ -84,7 +84,7 @@ jobs:
         run: |
          git config --global user.name '${{github.actor}}'
          git config --global user.email '${{github.actor}}@users.noreply.github.com'
-         mv module.json module_${{steps.get_version.outputs.build}}.json
+         mv src/module.json module_${{steps.get_version.outputs.build}}.json
          git add module_${{steps.get_version.outputs.build}}.json
          git stash
          git clean -f
