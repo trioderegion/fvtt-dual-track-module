@@ -22,7 +22,7 @@
     "styles": [],
     "socket": false,
     "url": "https://github.com/trioderegion/fvtt-dual-track-module",
-    "version": "1.0.1-rc+4",
-    "manifest": "https://raw.githubusercontent.com/trioderegion/fvtt-dual-track-module/master/tracks/$TRACK_MANIFEST",
-    "download": "https://github.com/trioderegion/fvtt-dual-track-module/releases/download/1.0.1-rc+4/fvtt-dual-track-module.zip"
+    "version": "1.0.1-rc+5",
+    "manifest": "https://raw.githubusercontent.com/trioderegion/fvtt-dual-track-module/master/tracks/rc-1.0.1.json",
+    "download": "https://github.com/trioderegion/fvtt-dual-track-module/releases/download/1.0.1-rc+5/fvtt-dual-track-module.zip"
 }
