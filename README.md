@@ -10,3 +10,5 @@ This template also includes an (opinionated) module structure inside of `scripts
 
 ## Creating a Release
 When creating a release package, the primary consideration is the tag name used. This tag name will be used as the module's version and will be used to compare against previous versions to determine if an update is needed for a user. Semantic versioning is mostly supported by foundry, e.g. `0.1.0`, `1.2.3`, `1.2+3`. Check your versioning scheme within foundry via is `isNewerVersion` helper.
+
+Once a few minutes have passed after release creation, two new files will be attached to the release. These are the release artifacts named `module.json` and `module.zip`. Point the foundry package management url to the `module.json` for that specific release. The release creation workflow ensures that users will always update to the latest release package.
